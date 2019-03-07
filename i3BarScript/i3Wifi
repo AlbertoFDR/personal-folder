@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#WIFI SCRIPT
 
 device=wlp2s0
 status=$(cat /sys/class/net/${device}/operstate)
