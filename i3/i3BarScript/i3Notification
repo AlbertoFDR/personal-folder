@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#NOTIFICACIONES
+
+case $BLOCK_BUTTON in
+	1) 
+ 	#mensaje=$(echo "Mensaje que saltara" | dmenu -i -p "Notificacion")
+	hora=$(echo "" | dmenu -i -p "Hora")
+	#notify-send -u critical "🔔 NOTIFICACION 🔔" "$mensaje"
+	echo 'notify-send -u critical "🔔 NOTIFICACION 🔔" ""'|at "$hora";;
+
+esac
+
+
+
+
+
+
