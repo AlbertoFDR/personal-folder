@@ -1,12 +1,6 @@
 #!/bin/sh
-#NOTIFICACIONES
-#mensaje=$(echo "Mensaje que saltara" | dmenu -i -p "Notificacion")
-#echo "$mensaje"
-#hora=$(echo "" | dmenu -i -p "Hora")
-#echo "$hora"
 
-#noti=$(notify-send "mensaje" "$mensaje")
-#echo 'noti' | at "$hora"
+#NOTIFICACIONES
 
 case $BLOCK_BUTTON in
 	1) 
