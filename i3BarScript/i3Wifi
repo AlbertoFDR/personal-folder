@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+device=wlp2s0
+status=$(cat /sys/class/net/${device}/operstate)
+
+case $BLOCK_BUTTON in
+	1)
+		if [ "$status" = "down" ]]; then
+			#notify-send "up"
+			nmcli radio wifi on
+			echo "📡ON📡"
+		else
+			#notify-send "down"
+			nmcli radio wifi off
+			echo "📡OFF📡"
+		fi;;
+esac
+
