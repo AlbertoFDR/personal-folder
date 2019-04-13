@@ -11,23 +11,7 @@ import requests
 import time
 from selenium.webdriver.firefox.options import Options
 from path import path
-#
-#
-# def download_file(url, filename="", filepath=".", cookies=None):
-#    if filename == "":
-#        filename = url.split('/')[-1]
-#
-#     #NOTE the stream=True parameter
-#    r = requests.get(url, stream=True, cookies=cookies)
-#
-#    if filepath.isdir() == False:
-#        filepath.makedirs()
-#
-#    with open(filepath / filename, 'wb') as f:
-#        for chunk in r.iter_content(chunk_size=1024):
-#            if chunk:  # filter out keep-alive new chunks
-#                f.write(chunk)
-#                # f.flush() commented by recommendation from J.F.Sebastian
+
 
 def download(docLink):
     print("Guardando resource: \n")
