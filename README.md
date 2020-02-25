@@ -4,4 +4,11 @@ Personal configurations and so on...
 ## I3 WM
 ![I3 photo](/images/i3.png)
 ## BSPWM
+
+This configuration includes:
+    - bspwm - Tiling Window Manager
+    - sxhkd - Shortcut configuration
+    - compton - For blurring windows
+    - rofi - Used to launch application
+
 ![BSPWM photo](/images/bspwm.png)
