@@ -6,9 +6,9 @@ Personal configurations and so on...
 ## BSPWM
 
 This configuration includes:
-    - bspwm - Tiling Window Manager
-    - sxhkd - Shortcut configuration
-    - compton - For blurring windows
-    - rofi - Used to launch application
+* bspwm - Tiling Window Manager
+* sxhkd - Shortcut configuration
+* compton - For blurring windows
+* rofi - Used to launch application
 
 ![BSPWM photo](/images/bspwm.png)
