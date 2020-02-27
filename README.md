@@ -10,5 +10,6 @@ This configuration includes:
 * sxhkd - Shortcut configuration
 * compton - For blurring windows
 * rofi - Used to launch application
+* polybar - The status bar because bspwm doesn't have one
 
 ![BSPWM photo](/images/bspwm.png)
