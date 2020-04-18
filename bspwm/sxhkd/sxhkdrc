@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	gnome-terminal
+	gnome-terminal # Change terminal
 
 # program launcher
 super + d
@@ -127,6 +127,6 @@ super + ctrl + {Left,Down,Up,Right}
 
 #Custom move resize
 alt + ctrl + {Left,Down,Up,Right}
-	/home/osboxes/.config/bspwm/scripts/bspwm_resize {west,south, north, east}
+	/home/User/.config/bspwm/scripts/bspwm_resize {west,south, north, east}
 
 #Google chrome....

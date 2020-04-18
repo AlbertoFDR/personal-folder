@@ -426,7 +426,7 @@ margin-bottom = 5
 ; vim:ft=dosini
 
 
-;Alberto
+; Custom Script Alberto
 [module/ethernet]
 type = custom/script
 interval = 2

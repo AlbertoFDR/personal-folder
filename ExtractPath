@@ -1,9 +1,0 @@
-#!/bin/sh
-for file in *.rar
-do 
-	folder=${file%????}
-	mkdir $folder 
-	cd $folder 
-	unrar e ../$file 
-	cd .. 
-done
