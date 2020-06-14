@@ -1,0 +1,13 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1)
+	screenmode=$(ls /home/USER/.folderOfModels | dmenu -i -p "Screen Mode?")
+	/home/USER/.folderOfModels/"$screenmode";;
+esac
+
+
+
+
+
+
