@@ -86,6 +86,15 @@ Plug 'prettier/vim-prettier'
 " Color scheme
 Plug 'morhetz/gruvbox'
 
+" File explorer
+Plug 'scrooloose/nerdtree'
+
+" Icons
+Plug 'ryanoasis/vim-devicons'
+
+" Autocompletacion
+Plug 'valloric/youcompleteme'
+
 " Initialize plugin system
 call plug#end()
 
@@ -158,6 +167,23 @@ let g:airline_symbols.maxlinenr = ''
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
+"               --------------------------------------------
+
+"               -------------  FILEEXPLORER CONF -----------
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Toggle
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+"               --------------------------------------------
+
+"               --------------  PRETTIER CONFIG ------------
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#exec_cmd_async = 1
 "               --------------------------------------------
 
 "               --------------  SET COLORSCHEME ------------
