@@ -1,0 +1,35 @@
+#! /bin/sh
+
+#Kill and execute
+pgrep "sxhkd" | xargs kill -9
+sxhkd &
+
+compton --config /home/bubu/.config/compton/compton.conf &
+wmname LG3D &
+
+#Background
+feh --randomize --bg-scale /home/bubu/Pictures/Wallpapers/**
+
+#Polybar
+~/.config/polybar/launch.sh &
+
+bspc config pointer_modifier mod1
+
+# In this part we are assigning Names (Caution if we change the names Polybar bswpm modules is going to stop working :'( )
+#bspc monitor 0 -n "DP-1" -d 1 2 3
+#bspc monitor 1 -n "HDMI-1" -d 4 5 6
+#bspc monitor 2 -n "HDMI-2" -d 7 8 9 0
+
+bspc monitor HDMI-2 -d 7 8 9 0
+bspc monitor HDMI-1 -d 3 4 5 6 
+bspc monitor DP-1 -d 1 2 
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+#Example
+#bspc rule -a Gimp desktop='^8' state=floating follow=on

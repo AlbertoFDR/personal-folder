@@ -1,0 +1,1 @@
+bspc monitor -g 1080x2760+0+0
