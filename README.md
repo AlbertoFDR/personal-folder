@@ -10,6 +10,9 @@ Steps to install my config:
 3. Move nvim config, inside the ~/.config/ folder
 4. Edit init.vim in ~/.config/nvim/init.vim and install plugins: *:PlugInstall*
 
+Any problem with YouCompleteMe (YCM) you should go to ~/.config/nvim/plugged/youcompleteme and put:
+ `python3 install.py --all`
+
 ## MY TWO WINDOWS MANAGER (LOOK&FEEL)
 ### I3 WM
 ![I3 photo](/images/i3.png)
