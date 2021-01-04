@@ -1,4 +1,6 @@
 #!/bin/bash
+# Simple script to change the audio_output between different options
+# In my case, I use this script when I connect the laptop to my living room TV.
 
 USER_NAME=$(who | awk -v vt=tty$(fgconsole) '$0 ~ vt {print $1}')
 USER_ID=$(id -u "$USER_NAME")
