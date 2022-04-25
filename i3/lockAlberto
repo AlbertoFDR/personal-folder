@@ -1,0 +1,83 @@
+#!/bin/sh
+# Script that makes the following actions:
+#   1. Screenshot
+#   2. Blur the screenshot
+#   3. For each monitor connected horizontally it adds a meme on the middle of the screenshot
+#       If you have the monitors connected vertically you will need to change a bit.
+#   4. Lock the computer and then remove the image
+MEMES=########ADD_PATH#########
+PICTURE=/tmp/i3lock.png
+BLUR="5x10"
+DEBUG=false
+
+# Make screenshot
+scrot $PICTURE
+
+## Blur the screenshot
+convert $PICTURE -blur $BLUR $PICTURE
+
+# Get number of monitors
+num_mon=`xrandr --listactivemonitors | tail -n +2 | wc -l`
+if $DEBUG ;then
+    echo "[NUMBER_MONITORS]" + $num_mon
+fi
+
+total_w=0
+total_h=0
+
+for i in $(seq $num_mon)
+do
+    # =================== GET MONITOR INFO 
+    # Example: 0: +*eDP-1 2560/309x1440/174+0+0 eDP-1
+    mon_info=`xrandr --listactivemonitors | tail -n +2 | sed -n ${i}p`;
+    # E.g.: 2560/309x1440/174+0+0
+    mon_dim=`echo $mon_info | awk '{print $3}'`
+    # 2560
+    mon_w=`echo $mon_dim | tr "/" " " | awk '{print $1}'`
+    # 1440
+    mon_h=`echo $mon_dim | tr "/" " " | awk '{print $2}' | tr "x" " " | awk '{print $2}'`
+
+    # Debug info
+    if $DEBUG ;then
+        echo "[MONITOR] " + $mon_info;
+        # echo "\t [DIMENSIONS]" + $mon_dim;
+        echo "\t [WEIGHT] " + $mon_w;
+        echo "\t [HEIGHT] " + $mon_h;
+    fi
+
+    # =================== SELECT MEME FOR THIS MONITOR
+    # Select meme
+    meme=`ls $MEMES | shuf -n 1`
+    meme_path=$MEMES/$meme
+    meme_we=$((`identify -format '%w %h' $meme_path | awk '{print $1}'`/2))
+    meme_he=$((`identify -format '%w %h' $meme_path | awk '{print $2}'`/2))
+    if $DEBUG ;then
+        echo "\t [MEME_INFO] Selected meme: $meme"
+        echo "\t\t [WEIGHT] Meme weight: $meme_we"
+        echo "\t\t [HEIGHT] Meme height: $meme_he"
+    fi
+
+    # Calculate meme position
+    pos_we=$(($mon_w/2-$meme_we+$total_w))
+    pos_he=$(($mon_h/2-$meme_he+$total_h))
+
+    if $DEBUG ;then
+        echo "\t [MEME_POSITION] ${pos_we}x${pos_he}" 
+    fi
+    
+    # Add the meme to $i monitor
+    convert -page +0+0 $PICTURE \
+        -page +$pos_we+$pos_he $meme_path \
+        -background none -layers merge +repage $PICTURE 
+
+    # Add to the total wxh of the screenshot
+    total_w=$(($total_w+$mon_w))
+    # If monitor are vertically connected
+    #total_h=$(($total_h+$mon_h))
+done
+
+# Lock
+i3lock -i $PICTURE
+
+# Remove the screenshot
+rm $PICTURE
