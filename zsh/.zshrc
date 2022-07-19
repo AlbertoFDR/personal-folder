@@ -120,6 +120,111 @@ function crono(){
     done
 }
 
+function check_writing(){
+    # https://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/
+
+    # check arguments
+    if [ "$1" = "" ]; then 
+        echo "Add argument: <file> ...\n"
+        return
+    fi
+
+    echo "[*] Checking the writing of the file/s... \n"
+
+    for var in "$@"; do
+        echo -e "-------------[$var]-------------"
+        # ---------- Check TO-DOs and fix
+        # Example: "\todo or \fix"
+        echo "[*] Checking for todo's or fix's..."
+        todo="todo|to-do|TO-DO|fix"
+        egrep -i -n --color "\\b($todo)\\b" $var
+
+        # ---------- Check for duplicates
+        # Example: "of of"
+        echo "[*] Checking duplications..."
+        grep -noP --color "\b(\w+)\s+\1\b" $var 
+
+        # ---------- Check Weasel words
+        # Example: "Many studies..."
+        echo "[*] Checking weasel words..."
+        weasels="many|various|very|fairly|several|extremely\
+        |exceedingly|quite|remarkably|few|surprisingly\
+        |mostly|largely|huge|tiny|((are|is) a number)\
+        |excellent|interestingly|significantly\
+        |substantially|clearly|vast|relatively|completely\
+        |almost|basically|some|most|enough|vast|various"
+
+        egrep -i -n --color "\\b($weasels)\\b" $var
+
+        # ---------- Check for passives
+        echo "[*] Checking passives..."
+        irregulars="awoken|\
+        been|born|beat|\
+        become|begun|bent|\
+        beset|bet|bid|\
+        bidden|bound|bitten|\
+        bled|blown|broken|\
+        bred|brought|broadcast|\
+        built|burnt|burst|\
+        bought|cast|caught|\
+        chosen|clung|come|\
+        cost|crept|cut|\
+        dealt|dug|dived|\
+        done|drawn|dreamt|\
+        driven|drunk|eaten|fallen|\
+        fed|felt|fought|found|\
+        fit|fled|flung|flown|\
+        forbidden|forgotten|\
+        foregone|forgiven|\
+        forsaken|frozen|\
+        gotten|given|gone|\
+        ground|grown|hung|\
+        heard|hidden|hit|\
+        held|hurt|kept|knelt|\
+        knit|known|laid|led|\
+        leapt|learnt|left|\
+        lent|let|lain|lighted|\
+        lost|made|meant|met|\
+        misspelt|mistaken|mown|\
+        overcome|overdone|overtaken|\
+        overthrown|paid|pled|proven|\
+        put|quit|read|rid|ridden|\
+        rung|risen|run|sawn|said|\
+        seen|sought|sold|sent|\
+        set|sewn|shaken|shaven|\
+        shorn|shed|shone|shod|\
+        shot|shown|shrunk|shut|\
+        sung|sunk|sat|slept|\
+        slain|slid|slung|slit|\
+        smitten|sown|spoken|sped|\
+        spent|spilt|spun|spit|\
+        split|spread|sprung|stood|\
+        stolen|stuck|stung|stunk|\
+        stridden|struck|strung|\
+        striven|sworn|swept|\
+        swollen|swum|swung|taken|\
+        taught|torn|told|thought|\
+        thrived|thrown|thrust|\
+        trodden|understood|upheld|\
+        upset|woken|worn|woven|\
+        wed|wept|wound|won|\
+        withheld|withstood|wrung|\
+        written"
+
+        egrep -n -i --color \
+        "\\b(am|are|were|being|is|been|was|be)\
+        \\b[ ]*(\w+ed|($irregulars))\\b" $var
+        
+
+        # ---------- Check with Aspell
+        echo "[*] Should we check with Aspell?(y/n)"
+        read yn
+        case $yn in
+            [Yy]* )aspell --master=en_US --lang=en_US -c $var;;
+        esac
+    done
+}
+
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
